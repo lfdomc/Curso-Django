@@ -5,3 +5,4 @@ django
 unipath
 ckeditor
 Pillow
+eso
