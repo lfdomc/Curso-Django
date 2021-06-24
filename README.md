@@ -1,9 +1,10 @@
 # Curso-Django
 En el entorno virtual de django, se ocupa instalar:
+pip install:
 
 django
 unipath
 pycopg2
-ckeditor
+djanbgo-ckeditor
 Pillow
 
