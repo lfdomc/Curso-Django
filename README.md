@@ -1,8 +1,9 @@
 # Curso-Django
-es el curso de django, se ocupa instalar:
+En el entorno virtual de django, se ocupa instalar:
 
 django
 unipath
+pycopg2
 ckeditor
 Pillow
-eso
+
