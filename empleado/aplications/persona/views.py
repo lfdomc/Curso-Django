@@ -1,3 +1,93 @@
+from typing import List
 from django.shortcuts import render
-
+from django.views.generic import *
+from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from .models import Empleado
 # Create your views here.
+
+class ListAllempleados(ListView):
+    template_name = 'persona/list_all.html'
+    paginate_by = 4
+    ordering = "first_name"
+    model = Empleado
+    #context_object_name ="lista"
+
+class ListByAreaEmpleado(ListView):
+
+    template_name = 'persona/list_by_area.html'
+
+    def get_queryset(self):
+        area = self.kwargs['shortname']
+        lista = Empleado.objects.filter(
+        departamento__name = area
+        )
+        return lista
+
+class ListEmpleadosByKword(ListView):
+
+    ## lista empleados por palabra ##
+    template_name = 'persona/by_kword.html'
+    context_object_name = 'empleados'
+
+    def get_queryset(self):
+        print('***************')
+        palabra_clave = self.request.GET.get("kword","")
+
+        lista = Empleado.objects.filter(
+        first_name = palabra_clave
+        )
+        return lista
+
+class ListaHabilidades(TemplateView):
+
+    template_name = 'persona/habilidades.html'
+    paginate_by = 4
+    ordering = "first_name"
+    model = Empleado
+    
+    
+class Prueba(ListView):
+    template_name = 'persona/habilidades.html'
+    context_object_name = "habilidades"
+
+    def get_queryset(self) :
+        empleado = Empleado.objects.get(id=2)
+        print(empleado.habilidades.all())
+        return empleado.habilidades.all()
+
+
+class EmpleadoDetailView(DetailView):
+    model = Empleado
+    template_name = "persona/detail_empleado.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
+        context["titulo"]= " Empleado del mes"
+        return context
+
+
+class SuccessView(TemplateView):
+    template_name = "persona/success.html"
+
+ 
+class EmpleadoCreateView(CreateView):
+     model = Empleado
+     template_name = "persona/add.html"
+     fields =[
+         "first_name",
+         "last_name",
+         "job",
+         "departamento",
+         "habilidades",
+         ]
+     #fields = ("__all__")
+     success_url = reverse_lazy('persona_app:correcto')
+
+     def  form_valid(self,form):
+
+         empleado =form.save()
+         empleado.full_name = empleado.first_name + ' '+ empleado.last_name
+         empleado.save()
+
+         return super(EmpleadoCreateView,self).form_valid(form)

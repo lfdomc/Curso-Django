@@ -9,8 +9,10 @@ admin.site.register(Habilidades)
 
 class EmpleadoAdmin(admin.ModelAdmin): 
     list_display =(
+        
         "first_name",
         "last_name",
+        "id",
         "departamento",
         "job",
         "full_name",
@@ -21,12 +23,12 @@ class EmpleadoAdmin(admin.ModelAdmin):
 
         print(obj)
 
-        return(obj.first_name + " " + obj.last_name)
+        return(obj.first_name + " " + obj.last_name + " " + str(obj.departamento))
 
 
     search_fields = ( "first_name",  )
 
-    list_filter =( "job","habilidades",)
+    list_filter = ("departamento","job",'habilidades')
 
     filter_horizontal =("habilidades",)
  
