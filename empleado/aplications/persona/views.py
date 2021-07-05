@@ -1,7 +1,9 @@
 from typing import List
 from django.shortcuts import render
 from django.views.generic import *
-from django.views.generic import TemplateView
+from django.views.generic import(TemplateView, UpdateView, DeleteView ) 
+
+
 from django.urls import reverse_lazy
 from .models import Empleado
 # Create your views here.
@@ -91,3 +93,42 @@ class EmpleadoCreateView(CreateView):
          empleado.save()
 
          return super(EmpleadoCreateView,self).form_valid(form)
+
+
+
+class EmpleadoUpdateView(UpdateView):
+    model = Empleado
+    template_name = "persona/update.html"
+    fields =[
+         "first_name",
+         "last_name",
+         "job",
+         "departamento",
+         "habilidades",
+         ]
+    success_url = reverse_lazy('persona_app:correcto')
+    
+    def post(self, request, *args, **kwargs):
+       self.object = self.get_object()
+       print("***********************************")
+       print(request.POST)
+       print(request.POST["last_name"])
+       print("***********************************")
+
+
+
+
+       return super().post(request, *args, **kwargs)     
+
+    def  form_valid(self,form):
+
+         print("++++++++++++++++++++++++++++++++++++")
+
+         return super(EmpleadoUpdateView,self).form_valid(form)   
+
+
+ 
+class EmpleadoDeleteView(DeleteView):
+     model = Empleado
+     template_name = "persona/delete.html"
+     success_url = reverse_lazy('persona_app:correcto')     

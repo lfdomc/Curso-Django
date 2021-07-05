@@ -1,0 +1,17 @@
+<h1>Eliminar Empleado</h1>
+<p>Presione el boton para eliminar empleado</p>
+
+{{form.as_p}}
+
+<form method="POST">{% csrf_token %}
+
+    {{form}}
+
+    {{empleado.first_name}}
+    {{empleado.last_name}}
+
+   
+    
+   <p> <button type="submit">Borrar</button></p>
+
+</form>

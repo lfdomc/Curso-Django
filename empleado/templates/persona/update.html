@@ -1,0 +1,9 @@
+<h1>Actualizar Empleado</h1>
+<p>Aqui debe actualizar empleados</p>
+
+<form method="POST">{% csrf_token %}
+
+    {{form.as_p}}
+    <button type="submit">Actualizar</button>
+
+</form>
