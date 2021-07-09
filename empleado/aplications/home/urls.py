@@ -7,4 +7,5 @@ urlpatterns = [
     path("lista/", views.PruebaListView.as_view()),
     path("lista_prueba/", views.ListaPrueba.as_view()),
     path("add/", views.PruebaCreateView.as_view(), name= "prueba_add"),
+    path("resume_foundation/", views.ResumeFoundationView.as_view(), name= "resume_foundation"),
 ]
