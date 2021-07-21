@@ -1,4 +1,58 @@
-<h1>Detalle del{{titulo}}</h1>
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+Empleado {{empleado.first_name}}
+{% endblock title %}
+
+
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="grid-container">
+  <div class="grid-x">
+    <h1 class = "cell">Lista Empleados</h1>
+               <form class= "cell grid-x grid-margin-x" method="GET">{% csrf_token %}
+                <div class="cell large-7">
+                   <input type="text" name="kword" id="kword" placeholder="Buscar Empleado">
+                </div>
+                <div class="cell large-4">
+                    <button type="summit" class="success button">Buscar</button>
+                </form>
+              </div>
+
+           <div class= "cell">
+            <table>
+                <thead>
+                  <tr>
+                    <th width="200">ID</th>
+                    <th>NOMBRES</th>
+                    <th width="150">APELLIDOS</th>
+                    <th width="150">DEPARTAMENTO</th>
+                    <th width="150">ACCION</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for e in object_list %}
+                  <tr>
+                    <td>{{empleado.id}}</td>
+                    <td>{{e.first_name}}</td>
+                    <td>{{e.last_name}}</td>
+                    <td>{{e.departamento}}</td>
+                    <td><a class="button warning" href=" {% url 'persona_app:empleado_detail' e.id %}">Ver</a></td>
+
+                    
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+           </div>
+    </div>
+  </div>
+    <ul>
+
+<h1>Detalle de {{empleado.first_name}}</h1>
 
 {{empleado}}
 
@@ -8,3 +62,5 @@
 <p>{{ empleado.last_name }}</p>
 <p>{{empleado.departamento}}</p>
 <p>{{empleado.habilidades}}</p>
+
+{% endblock content %}

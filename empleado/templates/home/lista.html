@@ -1,3 +1,15 @@
-<h1>Prueba de Lista</h1>
+{% extends 'home/conmon/base_home.html' %} 
+{% load static %}
+
+{% block titulo %}
+
+Pantalla 1
+{% endblock titulo %}
+
+
+{% block cuerpo %}
+<h1>Lista</h1>
 
 {{listaNumeros}}
+
+{% endblock cuerpo %}

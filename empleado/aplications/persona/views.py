@@ -8,12 +8,30 @@ from django.urls import reverse_lazy
 from .models import Empleado
 # Create your views here.
 
+
+class InicioView(TemplateView):
+    #vista que carga la pagina de Inicio#
+    template_name = "inicio.html"
+
+
 class ListAllempleados(ListView):
     template_name = 'persona/list_all.html'
-    paginate_by = 4
+    paginate_by = 5
     ordering = "first_name"
-    model = Empleado
-    #context_object_name ="lista"
+    context_object_name ="empleados"
+
+    def get_queryset(self):
+        print("********--------*******")
+        
+        palabra_clave = self.request.GET.get("kword","")
+        lista = Empleado.objects.filter(
+        first_name__icontains= palabra_clave
+        )
+        print(lista)
+        return lista
+
+
+
 
 class ListByAreaEmpleado(ListView):
 
