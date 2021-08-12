@@ -9,52 +9,42 @@ Empleado {{empleado.first_name}}
 
 {% block content %}
 {% include 'includes/header.html' %}
+
 <div class="grid-container">
-  <div class="grid-x">
-    <h1 class = "cell">Lista Empleados</h1>
-               <form class= "cell grid-x grid-margin-x" method="GET">{% csrf_token %}
-                <div class="cell large-7">
-                   <input type="text" name="kword" id="kword" placeholder="Buscar Empleado">
-                </div>
-                <div class="cell large-4">
-                    <button type="summit" class="success button">Buscar</button>
-                </form>
-              </div>
-
-           <div class= "cell">
+   <div class="grid-x">
+      <h1>Lista de departamento</h1>
+        <div class="cell">
             <table>
-                <thead>
-                  <tr>
-                    <th width="200">ID</th>
-                    <th>NOMBRES</th>
-                    <th width="150">APELLIDOS</th>
-                    <th width="150">DEPARTAMENTO</th>
-                    <th width="150">ACCION</th>
-                    
-                  </tr>
-                </thead>
+              <thead>
+                <tr>
+                  
+                  <th width="150">NOMBRE</th>
+                  <th width="150">APELLIDO</th>
+                  <th width="150">DEPARTAMENTO</th>
+                  <th width="150">HABILIDADES</th>
+                  
+                </tr>
+              </thead>
+
                 <tbody>
-                  {% for e in object_list %}
-                  <tr>
-                    <td>{{empleado.id}}</td>
-                    <td>{{e.first_name}}</td>
-                    <td>{{e.last_name}}</td>
-                    <td>{{e.departamento}}</td>
-                    <td><a class="button warning" href=" {% url 'persona_app:empleado_detail' e.id %}">Ver</a></td>
-
+                     
+                    <tr>
+                        
+                        <td>{{ empleado.first_name }}</td>
+                        <td>{{ empleado.last_name }}</td>
+                        <td>{{empleado.departamento}}</td>
+                        <td>{{empleado.habilidades}}</td>
+                    </tr>
                     
-                  </tr>
-                  {% endfor %}
                 </tbody>
-              </table>
-           </div>
-    </div>
-  </div>
-    <ul>
+            </table>
+        </div>
+   </div>
+</div>
 
-<h1>Detalle de {{empleado.first_name}}</h1>
 
-{{empleado}}
+
+{% endblock content %}
 
 <h3>Todos los datos</h3>
 
@@ -63,4 +53,3 @@ Empleado {{empleado.first_name}}
 <p>{{empleado.departamento}}</p>
 <p>{{empleado.habilidades}}</p>
 
-{% endblock content %}

@@ -15,26 +15,24 @@ class InicioView(TemplateView):
 
 
 class ListAllempleados(ListView):
+    
     template_name = 'persona/list_all.html'
     paginate_by = 5
-    ordering = "first_name"
+    ##ordering = ['id','last_name']
     context_object_name ="empleados"
 
     def get_queryset(self):
         print("********--------*******")
-        
         palabra_clave = self.request.GET.get("kword","")
         lista = Empleado.objects.filter(
         first_name__icontains= palabra_clave
         )
+        lista = Empleado.objects.order_by('id')
         print(lista)
         return lista
 
-
-
-
 class ListByAreaEmpleado(ListView):
-
+        ## Lista de empleados de un area ##
     template_name = 'persona/list_by_area.html'
 
     def get_queryset(self):
@@ -100,6 +98,7 @@ class EmpleadoCreateView(CreateView):
          "job",
          "departamento",
          "habilidades",
+         "avatar",
          ]
      #fields = ("__all__")
      success_url = reverse_lazy('persona_app:correcto')
@@ -124,7 +123,7 @@ class EmpleadoUpdateView(UpdateView):
          "departamento",
          "habilidades",
          ]
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:admin_all')
     
     def post(self, request, *args, **kwargs):
        self.object = self.get_object()
@@ -149,4 +148,22 @@ class EmpleadoUpdateView(UpdateView):
 class EmpleadoDeleteView(DeleteView):
      model = Empleado
      template_name = "persona/delete.html"
-     success_url = reverse_lazy('persona_app:correcto')     
+     success_url = reverse_lazy('persona_app:admin_all')     
+
+
+
+class ListaAdminempleados(ListView):
+    template_name = 'persona/admin_empleado.html'
+    paginate_by = 10
+    ordering = "last_name"
+    context_object_name ="empleados"
+
+    def get_queryset(self):
+        print("********--------*******")  
+        palabra_clave = self.request.GET.get("kword","")
+        lista = Empleado.objects.filter(
+        first_name__icontains= palabra_clave
+        )
+        lista = Empleado.objects.order_by('id')
+        print(lista)
+        return lista

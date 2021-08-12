@@ -1,10 +1,21 @@
 from django.shortcuts import render
 from django.views.generic.edit import(FormView) 
 from django.urls import reverse_lazy
-
+from django.views.generic import *
 from .forms import NewDepartamentoForm
 from aplications.persona.models import Empleado
 from .models import Departamento
+
+
+
+class DepartamentoListView(ListView):
+    model = Departamento
+    template_name = "departamento/lista.html"
+    context_object_name = "departamentos"
+
+
+
+
 
 class NewDepartamentoView(FormView):
 
