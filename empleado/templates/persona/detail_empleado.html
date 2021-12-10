@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block title %}
 
@@ -11,8 +12,41 @@ Empleado {{empleado.first_name}}
 {% include 'includes/header.html' %}
 
 <div class="grid-container">
-   <div class="grid-x">
-      <h1>Lista de departamento</h1>
+   <div>
+    
+   </div>
+   <div class="grid-x align-center">
+    <div class="cell large-12 card" style="width: 300px;">
+      <div class="card-divider">
+        {{empleado.get_job_display}}
+      </div>
+      {% if empleado.avatar %}
+         <img src="{{empleado.avatar.url}}">
+      {% else %}
+         <img src="{% static 'img/01.jpg' %}">
+      {% endif %}
+      
+      <div class="card-section">
+        <td>{{ empleado.first_name }}</td>
+        <td>{{ empleado.last_name }}</td>
+        <p><td>{{empleado.departamento.shor_name}}</td></p>
+        <p><span class="label">Habilidades: </span> </p>
+        <ul class="vertical menu">  
+          
+          {% for h in empleado.habilidades.all %}
+            <li>{{h.habilidad}}</li>
+          {% endfor %}
+            
+        </ul>
+        
+      </div>
+    </div>
+
+
+
+    <div>
+
+      <h1>Info de Empleado</h1>
         <div class="cell">
             <table>
               <thead>
@@ -41,7 +75,7 @@ Empleado {{empleado.first_name}}
         </div>
    </div>
 </div>
-
+</div>
 
 
 {% endblock content %}
